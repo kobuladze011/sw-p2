@@ -1,6 +1,6 @@
 .navbar {
   background-color: var(--primary-green);
-  padding: 1.2rem 3rem;
+  padding: 1.2rem 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,11 +13,16 @@
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.brandName:hover {
+  color: var(--accent-orange);
 }
 
 .navLinks {
   display: flex;
-  gap: 2.5rem;
+  gap: 3rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -66,4 +71,45 @@
   font-size: 0.75rem;
   margin-left: 5px;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 3%;
+  }
+
+  .brandName {
+    font-size: 1.5rem;
+  }
+
+  .navLinks {
+    gap: 1.5rem;
+  }
+
+  .navLinks a {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.9rem 3%;
+  }
+
+  .brandName {
+    font-size: 1.3rem;
+  }
+
+  .navLinks {
+    gap: 1rem;
+  }
+
+  .navLinks a {
+    font-size: 0.85rem;
+  }
+
+  .badge {
+    padding: 1px 5px;
+    font-size: 0.7rem;
+  }
 }

@@ -83,50 +83,98 @@ const AnimalDetail: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
-        ← Back
-      </button>
+      <div className={styles.currencyToggleContainer}>
+        <CurrencyToggle onRateChange={handleCurrencyChange} />
+      </div>
 
-      <div className={styles.detailCard}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>{animal.name}</h1>
-          <CurrencyToggle onRateChange={handleCurrencyChange} />
-        </div>
-
-        <div className={styles.price}>{formatPrice(animal.price)}</div>
-
-        <div className={styles.badges}>
-          {animal.isPopular && (
-            <span className={`${styles.badge} ${styles.badgePopular}`}>
-              Popular
-            </span>
+      <div className={styles.productLayout}>
+        <div className={styles.imageSection}>
+          {animal.imageUrl ? (
+            <img 
+              src={animal.imageUrl} 
+              alt={animal.name}
+              className={styles.productImage}
+            />
+          ) : (
+            <div className={styles.imagePlaceholder} />
           )}
-          <span
-            className={`${styles.badge} ${animal.isStock ? styles.badgeInStock : styles.badgeOutOfStock}`}
-          >
-            {animal.isStock ? 'In Stock' : 'Out of Stock'}
-          </span>
         </div>
 
-        <div className={styles.description}>
-          <h3>Description</h3>
-          <p>{animal.description}</p>
-        </div>
+        <div className={styles.detailsSection}>
+          <h1 className={styles.title}>
+            {animal.name} - {animal.category || 'Pet'}
+          </h1>
 
-        <div className={styles.actions}>
-          <button
-            className={`${styles.button} ${styles.buttonPrimary} ${!animal.isStock ? styles.buttonDisabled : ''}`}
-            onClick={handleAddToCart}
-            disabled={!animal.isStock}
-          >
-            Add to Cart
-          </button>
-          <button
-            className={`${styles.button} ${styles.buttonSecondary} ${isInWishlist() ? styles.active : ''}`}
-            onClick={handleToggleWishlist}
-          >
-            {isInWishlist() ? '❤ Remove from Wishlist' : '🤍 Add to Wishlist'}
-          </button>
+          <p className={styles.description}>{animal.description}</p>
+
+          <div className={styles.specsList}>
+            {animal.weight && (
+              <div className={styles.specItem}>
+                <span className={styles.specLabel}>Weight:</span>
+                <span className={styles.specValue}>{animal.weight}</span>
+              </div>
+            )}
+            {animal.height && (
+              <div className={styles.specItem}>
+                <span className={styles.specLabel}>Height:</span>
+                <span className={styles.specValue}>{animal.height}</span>
+              </div>
+            )}
+            {animal.color && (
+              <div className={styles.specItem}>
+                <span className={styles.specLabel}>Color:</span>
+                <span className={styles.specValue}>{animal.color}</span>
+              </div>
+            )}
+            {animal.gender && (
+              <div className={styles.specItem}>
+                <span className={styles.specLabel}>Gender:</span>
+                <span className={styles.specValue}>{animal.gender}</span>
+              </div>
+            )}
+            {animal.vaccinated && (
+              <div className={styles.specItem}>
+                <span className={styles.specLabel}>Vaccinated:</span>
+                <span className={styles.specValue}>{animal.vaccinated}</span>
+              </div>
+            )}
+            {animal.microchipped && (
+              <div className={styles.specItem}>
+                <span className={styles.specLabel}>Microchipped:</span>
+                <span className={styles.specValue}>{animal.microchipped}</span>
+              </div>
+            )}
+            {animal.age && (
+              <div className={styles.specItem}>
+                <span className={styles.specLabel}>Age:</span>
+                <span className={styles.specValue}>{animal.age}</span>
+              </div>
+            )}
+            <div className={styles.specItem}>
+              <span className={styles.specLabel}>Status:</span>
+              <span className={styles.specValue}>
+                {animal.isStock ? 'In Stock' : 'Out of Stock'}
+              </span>
+            </div>
+          </div>
+
+          <div className={styles.price}>{formatPrice(animal.price)}</div>
+
+          <div className={styles.actions}>
+            <button
+              className={styles.buttonWishlist}
+              onClick={handleToggleWishlist}
+            >
+              Add to Wishlist
+            </button>
+            <button
+              className={`${styles.buttonCart} ${!animal.isStock ? styles.buttonDisabled : ''}`}
+              onClick={handleAddToCart}
+              disabled={!animal.isStock}
+            >
+              Add to Cart
+            </button>
+          </div>
         </div>
       </div>
     </div>

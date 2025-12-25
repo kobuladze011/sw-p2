@@ -1,48 +1,96 @@
 import React, { useState } from 'react';
 import AnimalsList from './components/AnimalsList';
 import CategoriesList from './components/CategoriesList';
-import AnimalsWithCategoriesList from './components/AnimalsWithCategoriesList';
-import {
-  AdminContainer,
-  AdminHeader,
-  AdminNav,
-  NavLink,
-} from './styles/AdminStyles';
+import AddPetForm from './components/AddPetForm';
+import AddCategoryForm from './components/AddCategoryForm';
+import styles from './AdminPanel.module.css';
 
-type AdminView = 'animals' | 'categories' | 'relations';
+type AdminView = 'pets' | 'categories' | 'addPet' | 'addCategory';
 
 const AdminPanel: React.FC = () => {
-  const [activeView, setActiveView] = useState<AdminView>('animals');
+  const [activeView, setActiveView] = useState<AdminView>('pets');
+  const [petsListKey, setPetsListKey] = useState(0);
+  const [categoriesListKey, setCategoriesListKey] = useState(0);
 
   return (
-    <AdminContainer>
-      <AdminHeader>Admin Panel</AdminHeader>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.headerTitle}>
+          <span className={styles.headerIcon}>🐾</span>
+          Pet Shop Admin Panel
+        </h1>
+        <p className={styles.headerSubtitle}>
+          Manage your pets and categories with elegance
+        </p>
+      </div>
 
-      <AdminNav>
-        <NavLink
-          $active={activeView === 'animals'}
-          onClick={() => setActiveView('animals')}
+      <div className={styles.tabsContainer}>
+        <button
+          className={`${styles.tab} ${(activeView === 'pets' || activeView === 'addPet') ? styles.active : ''}`}
+          onClick={() => setActiveView('pets')}
         >
-          Animals
-        </NavLink>
-        <NavLink
-          $active={activeView === 'categories'}
+          Pets
+        </button>
+        <button
+          className={`${styles.tab} ${(activeView === 'categories' || activeView === 'addCategory') ? styles.active : ''}`}
           onClick={() => setActiveView('categories')}
         >
           Categories
-        </NavLink>
-        <NavLink
-          $active={activeView === 'relations'}
-          onClick={() => setActiveView('relations')}
-        >
-          Animals with Categories
-        </NavLink>
-      </AdminNav>
+        </button>
+      </div>
 
-      {activeView === 'animals' && <AnimalsList />}
-      {activeView === 'categories' && <CategoriesList />}
-      {activeView === 'relations' && <AnimalsWithCategoriesList />}
-    </AdminContainer>
+      {activeView === 'pets' && (
+        <AnimalsList
+          key={petsListKey}
+          onAddNew={() => setActiveView('addPet')}
+        />
+      )}
+
+      {activeView === 'categories' && (
+        <CategoriesList
+          key={categoriesListKey}
+          onAddNew={() => setActiveView('addCategory')}
+        />
+      )}
+
+      {activeView === 'addPet' && (
+        <div className={styles.addPageLayout}>
+          <div className={styles.backRow}>
+            <button className={styles.backButton} onClick={() => setActiveView('pets')}>
+              ← Back to Pets
+            </button>
+          </div>
+          <div className={styles.formCardWrap}>
+            <AddPetForm
+              onCancel={() => setActiveView('pets')}
+              onCreated={() => {
+                setPetsListKey((k) => k + 1);
+                setActiveView('pets');
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {activeView === 'addCategory' && (
+        <div className={styles.addPageLayout}>
+          <div className={styles.backRow}>
+            <button className={styles.backButton} onClick={() => setActiveView('categories')}>
+              ← Back to Categories
+            </button>
+          </div>
+          <div className={styles.formCardWrap}>
+            <AddCategoryForm
+              onCancel={() => setActiveView('categories')}
+              onCreated={() => {
+                setCategoriesListKey((k) => k + 1);
+                setActiveView('categories');
+              }}
+            />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

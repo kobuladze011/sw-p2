@@ -1,5 +1,6 @@
 .carouselContainer {
-  width: 80%;
+  width: 95%;
+  max-width: 2000px;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 40px;
@@ -7,23 +8,23 @@
 
 @media (max-width: 1024px) {
   .carouselContainer {
-    width: 90%;
+    width: 96%;
   }
 }
 
 @media (max-width: 768px) {
   .carouselContainer {
-    width: 95%;
+    width: 97%;
   }
 }
 
 .carousel {
   position: relative;
   width: 100%;
-  height: 360px;
-  border-radius: 12px;
+  height: 380px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
 }
 
 .imageContainer {
@@ -54,77 +55,126 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
-  padding: 35px 45px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.65) 50%, rgba(0, 0, 0, 0.3) 75%, transparent 100%);
+  padding: 40px 50px;
   color: white;
 }
 
 .animalName {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 700;
-  margin: 0 0 8px 0;
+  margin: 0 0 10px 0;
   color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .animalDescription {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   margin: 0;
-  color: rgba(255, 255, 255, 0.95);
-  max-width: 650px;
-  line-height: 1.6;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.97);
+  max-width: 700px;
+  line-height: 1.7;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .navButton {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(74, 95, 74, 0.85);
   color: white;
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  font-size: 2rem;
+  font-size: 1.8rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
   z-index: 10;
+  line-height: 1;
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .navButton:hover {
-  background: rgba(0, 0, 0, 0.7);
-  transform: translateY(-50%) scale(1.1);
+  background: rgba(74, 95, 74, 1);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.navButton:active {
+  transform: translateY(-50%) scale(1);
 }
 
 .navButtonLeft {
-  left: 20px;
+  left: 30px;
 }
 
 .navButtonRight {
-  right: 20px;
+  right: 30px;
 }
 
 @media (max-width: 1024px) {
   .carousel {
-    height: 320px;
+    height: 340px;
   }
 
   .animalName {
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 
   .animalDescription {
-    font-size: 1.05rem;
+    font-size: 1.08rem;
+  }
+
+  .navButtonLeft {
+    left: 20px;
+  }
+
+  .navButtonRight {
+    right: 20px;
   }
 }
 
 @media (max-width: 768px) {
   .carousel {
-    height: 280px;
+    height: 300px;
+  }
+
+  .overlay {
+    padding: 25px 30px;
+  }
+
+  .animalName {
+    font-size: 1.7rem;
+  }
+
+  .animalDescription {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  .navButton {
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+  }
+
+  .navButtonLeft {
+    left: 15px;
+  }
+
+  .navButtonRight {
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    height: 260px;
   }
 
   .overlay {
@@ -132,50 +182,25 @@
   }
 
   .animalName {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   .animalDescription {
-    font-size: 0.95rem;
-    max-width: 100%;
+    font-size: 0.9rem;
   }
 
   .navButton {
     width: 40px;
     height: 40px;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .navButtonLeft {
-    left: 10px;
+    left: 12px;
   }
 
   .navButtonRight {
-    right: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel {
-    height: 240px;
-  }
-
-  .overlay {
-    padding: 15px 20px;
-  }
-
-  .animalName {
-    font-size: 1.3rem;
-  }
-
-  .animalDescription {
-    font-size: 0.85rem;
-  }
-
-  .navButton {
-    width: 35px;
-    height: 35px;
-    font-size: 1.3rem;
+    right: 12px;
   }
 }
 

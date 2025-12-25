@@ -7,6 +7,13 @@ export interface Animal {
   isStock: boolean;
   imageUrl?: string;
   category?: string;
+  weight?: string;
+  height?: string;
+  color?: string;
+  gender?: string;
+  vaccinated?: string;
+  microchipped?: string;
+  age?: string;
 }
 
 export interface Category {

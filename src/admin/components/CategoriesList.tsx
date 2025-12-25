@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { categoriesApi } from '../../api/apiService';
 import { Category } from '../../types';
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableCell,
-  Button,
-} from '../styles/AdminStyles';
 import CategoryForm from './CategoryForm';
+import styles from './CategoriesList.module.css';
+import adminStyles from '../AdminPanel.module.css';
 
-const CategoriesList: React.FC = () => {
+type CategoriesListProps = {
+  onAddNew?: () => void;
+};
+
+const CategoriesList: React.FC<CategoriesListProps> = ({ onAddNew }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [loading, setLoading] = useState(true);
@@ -56,41 +54,48 @@ const CategoriesList: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   return (
     <>
-      <CategoryForm category={editingCategory} onClose={handleFormClose} />
+      {editingCategory && (
+        <CategoryForm category={editingCategory} onClose={handleFormClose} />
+      )}
 
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeader>ID</TableHeader>
-            <TableHeader>Title</TableHeader>
-            <TableHeader>Description</TableHeader>
-            <TableHeader>Actions</TableHeader>
-          </TableRow>
-        </TableHead>
-        <tbody>
-          {categories.map((category) => (
-            <TableRow key={category.id}>
-              <TableCell>{category.id}</TableCell>
-              <TableCell>{category.title}</TableCell>
-              <TableCell>{category.description}</TableCell>
-              <TableCell>
-                <Button onClick={() => handleEdit(category)}>Edit</Button>
-                <Button
-                  $variant="danger"
-                  onClick={() => handleDelete(category.id)}
-                >
-                  Delete
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </tbody>
-      </Table>
+      <div className={adminStyles.contentHeader}>
+        <h2 className={adminStyles.contentTitle}>All Categories</h2>
+        <button 
+          className={adminStyles.addButton} 
+          onClick={() => (onAddNew ? onAddNew() : setEditingCategory({ id: 0 } as Category))}
+        >
+          Add New Category
+        </button>
+      </div>
+
+      <div className={styles.grid}>
+        {categories.map((category) => (
+          <div key={category.id} className={styles.card}>
+            <h3 className={styles.categoryTitle}>{category.title}</h3>
+            <p className={styles.categoryDescription}>{category.description}</p>
+
+            <div className={styles.actions}>
+              <button
+                className={styles.editButton}
+                onClick={() => handleEdit(category)}
+              >
+                Edit
+              </button>
+              <button
+                className={styles.deleteButton}
+                onClick={() => handleDelete(category.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 };
